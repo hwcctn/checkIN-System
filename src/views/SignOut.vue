@@ -67,7 +67,7 @@
 </template>
 
 <script>
-
+import axios from "axios"
 
 // @ is an alias to /src
 
@@ -97,11 +97,14 @@ mounted(){
       this.sure=false;
     },
     check(){
-    this.$api.getStudentInfo({
-     
-      stu_id:parseInt (this.number)
+      axios.get("http://101.35.238.12:5000/student-info",
     
-  })
+    { params:{
+       stu_id:parseInt (this.number)
+    }
+    }
+     
+   )
     .then(res =>{
       if(res.data=="不存在此用户"){
         this.infom=false;
@@ -112,10 +115,12 @@ mounted(){
       this.id=res.data.studentId,
       this.name=res.data.name,
       this.qq=res.data.qq
-      this.$axios.getScore(
+      axios.get("http://101.35.238.12:5000/score",
       {
+        params:{
       stu_id:parseInt (this.number),
       exam:this.cid
+        }
     
   })
     .then(res =>{

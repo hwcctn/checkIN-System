@@ -152,13 +152,16 @@ export default {
     }
   },
   check(){
-    this.$api.getStudentInfo({
-     
-   
-      stu_id:parseInt (this.number)
+    axios.get("http://101.35.238.12:5000/student-info",
     
-  })
+   { params:{
+      stu_id:parseInt (this.number)
+   }
+   }
+    
+  )
     .then(res =>{
+      console.log(res.data)
       if(res.data=="不存在此用户"){
         this.ewm2=false;
         this.infom=false;
